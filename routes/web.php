@@ -2,6 +2,7 @@
 
 use App\Http\Livewire\CustomerComponent;
 use App\Http\Livewire\Login;
+use App\Http\Livewire\OrderComponent;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -19,6 +20,8 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('login', [Login::class, 'render']);
+Route::get('login', Login::class);
 
-Route::get('customers', CustomerComponent::class);
+Route::get('customers', CustomerComponent::class)->name('customers')->middleware('auth');
+
+Route::get('orders', OrderComponent::class)->name('orders')->middleware('auth');

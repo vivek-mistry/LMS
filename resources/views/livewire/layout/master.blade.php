@@ -8,6 +8,11 @@
 </head>
 
 <body>
+    @php
+        $current_route = Illuminate\Support\Facades\Request::segment(1);
+    @endphp
+    @auth
+
 
     <div class="container m-4">
         <div class="row">
@@ -17,9 +22,9 @@
                         <div class="col-12">
                             <span class="pull-left">
                                 <nav class="nav nav-pills nav-fill">
-                                    <a class="nav-link" href="#">Dashboard</a>
-                                    <a class="nav-link active" href="#">Customer</a>
-                                    <a class="nav-link" href="#">Orders</a>
+                                    {{-- <a class="nav-link" href="#">Dashboard</a> --}}
+                                    <a class="nav-link {{ $current_route == 'customers' ? 'active' : null }}" href="{{ route('customers') }}">Customer </a>
+                                    <a class="nav-link {{ $current_route == 'orders' ? 'active' : null }}" href="{{ route('orders') }}">Orders</a>
                                     <a class="nav-link" href="#">Logout</a>
                                 </nav>
                             </span>
@@ -35,6 +40,7 @@
 
 
     </div>
+    @endauth
     {{ $slot }}
 
 
