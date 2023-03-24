@@ -11,7 +11,7 @@
                     <div class="card-body">
                         @if (session()->has('message'))
                             <div class="alert alert-success text-center">{{ session('message') }}</div>
-                        @endif
+                        @endifð
                         <table class="table table-borderd">
                             <thead>
                                 <th>Name</th>
@@ -36,6 +36,7 @@
                                 @endforeach
                             </tbody>
                         </table>
+
                     </div>
                 </div>
             </div>
@@ -45,7 +46,7 @@
     <!-- Modal -->
     <div wire:ignore.self class="modal fade " id="addCustomerModal" tabindex="-1" role="dialog"
         aria-labelledby="modelTitleId" aria-hidden="true">
-        <div class="modal-dialog" role="document">
+        <div class="modal-dialog modal-lg" role="document">
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title">Add New Customer</h5>
@@ -111,7 +112,7 @@
     <!-- Edit Modal -->
     <div wire:ignore.self class="modal fade " id="editCustomerModal" tabindex="-1" role="dialog"
         aria-labelledby="modelTitleId" aria-hidden="true">
-        <div class="modal-dialog" role="document">
+        <div class="modal-dialog modal-lg" role="document">
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title">Update Customer</h5>

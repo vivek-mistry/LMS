@@ -2,6 +2,7 @@
 
 namespace App\Http\Livewire;
 
+use App\DataTables\CustomerDataTable;
 use App\Models\Customer;
 use Livewire\Component;
 
@@ -9,6 +10,7 @@ class CustomerComponent extends Component
 {
     public $name, $mobile_number, $pan, $aadhar, $customer_edit_id;
 
+    public $dataTable;
 
     public function storeCustomerData()
     {
@@ -83,7 +85,9 @@ class CustomerComponent extends Component
 
     public function render()
     {
+        // return $dataTable->render('livewire.customer-component')->layout('livewire.layout.master');
         $customer = Customer::all();
+
         return view('livewire.customer-component', ['customers' => $customer])->layout('livewire.layout.master');
     }
 }

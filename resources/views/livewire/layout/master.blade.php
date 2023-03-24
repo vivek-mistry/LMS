@@ -4,6 +4,7 @@
     <title>{{ config('app.name') }}</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css"
         integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
+    @stack('styles')
     @livewireStyles()
 </head>
 
@@ -12,34 +13,57 @@
         $current_route = Illuminate\Support\Facades\Request::segment(1);
     @endphp
     @auth
+        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+            <a class="navbar-brand" href="#">LMS</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+                aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav mr-auto">
+                    <li class="nav-item {{ $current_route == 'customers' ? 'active' : null }}">
+                        <a class="nav-link" href="{{ route('customers') }}">Customer </a>
+                    </li>
+                    <li class="nav-item {{ $current_route == 'orders' ? 'active' : null }}">
+                        <a class="nav-link" href="{{ route('orders') }}">Orders</a>
+                    </li>
+
+                </ul>
+                <form class="form-inline my-2 my-lg-0">
+
+                        <a class="btn btn-outline-danger my-2 my-sm-0" href="{{ route('logout') }}">Logout</a>
+
+                </form>
+            </div>
+        </nav>
+
+        <div class="container m-4">
+            <div class="row">
+                <div class="col-12">
+                    <div class="box">
+                        <div class="header">
+                            <div class="col-12">
+                                <span class="pull-left">
+                                    <nav class="nav nav-pills nav-fill">
+                                        {{-- <a class="nav-link" href="#">Dashboard</a> --}}
 
 
-    <div class="container m-4">
-        <div class="row">
-            <div class="col-12">
-                <div class="box">
-                    <div class="header">
-                        <div class="col-12">
-                            <span class="pull-left">
-                                <nav class="nav nav-pills nav-fill">
-                                    {{-- <a class="nav-link" href="#">Dashboard</a> --}}
-                                    <a class="nav-link {{ $current_route == 'customers' ? 'active' : null }}" href="{{ route('customers') }}">Customer </a>
-                                    <a class="nav-link {{ $current_route == 'orders' ? 'active' : null }}" href="{{ route('orders') }}">Orders</a>
-                                    <a class="nav-link" href="#">Logout</a>
-                                </nav>
-                            </span>
+
+                                    </nav>
+                                </span>
+
+                            </div>
 
                         </div>
-
                     </div>
                 </div>
+
+
             </div>
 
 
         </div>
-
-
-    </div>
     @endauth
     {{ $slot }}
 

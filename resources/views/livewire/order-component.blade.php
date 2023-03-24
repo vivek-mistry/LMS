@@ -1,3 +1,29 @@
+@push('styles')
+    <style>
+        @media screen {
+            #printSection {
+                display: none;
+            }
+        }
+
+        @media print {
+            body * {
+                visibility: hidden;
+            }
+
+            #printSection,
+            #printSection * {
+                visibility: visible;
+            }
+
+            #printSection {
+                position: absolute;
+                left: 0;
+                top: 0;
+            }
+        }
+    </style>
+@endpush
 <div>
     <div class="container">
         <div class="row">
@@ -32,8 +58,10 @@
                                         <td>{{ $value->total_amount }}</td>
                                         <td>{{ $value->per_month_amount }}</td>
                                         <td>
-                                            <button class="btn btn-danger" wire:click='deleteConfirmation({{ $value->id }})'>Delete</button>
-                                            <button class="btn btn-warning" wire:click='orderWithDetail({{ $value->id }})'>View</button>
+                                            <button class="btn btn-danger"
+                                                wire:click='deleteConfirmation({{ $value->id }})'>Delete</button>
+                                            <button class="btn btn-warning"
+                                                wire:click='orderWithDetail({{ $value->id }})'>View</button>
                                         </td>
                                     </tr>
                                 @endforeach
@@ -48,7 +76,7 @@
     <!-- Modal -->
     <div wire:ignore.self class="modal fade " id="addOrderModal" tabindex="-1" role="dialog"
         aria-labelledby="modelTitleId" aria-hidden="true">
-        <div class="modal-dialog" role="document">
+        <div class="modal-dialog modal-lg" role="document">
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title">Add New Order</h5>
@@ -56,7 +84,7 @@
                         <span aria-hidden="true">&times; </span>
                     </button>
                 </div>
-                <form wire:submit.prevent='submit'>
+                <form wire:submit.prevent='storeOrder'>
                     <div class="modal-body">
 
                         <div class="form-group row">
@@ -77,7 +105,7 @@
                         <div class="form-group row">
                             <label class="col-3">Category Type</label>
                             <div class="col-9">
-                                <input type="text" class="form-control" readonly wire:model='category_type'>
+                                <input type="text" class="form-control" wire:model='category_type'>
                                 @error('category_type')
                                     <span class="text-danger">{{ $message }}</span>
                                 @enderror
@@ -107,7 +135,8 @@
                         <div class="form-group row">
                             <label class="col-3">Total Amount</label>
                             <div class="col-9">
-                                <input type="text" class="form-control" wire:model='total_amount'>
+                                <input type="text" class="form-control" wire:keyup='calculateLoan'
+                                    wire:model='total_amount'>
                                 @error('total_amount')
                                     <span class="text-danger">{{ $message }}</span>
                                 @enderror
@@ -182,9 +211,11 @@
         </div>
     </div>
 
+    <div id="PrintDiv"></div>
+
     <div wire:ignore.self class="modal fade " id="viewOrderModal" tabindex="-1" role="dialog"
         aria-labelledby="modelTitleId" aria-hidden="true">
-        <div class="modal-dialog" role="document">
+        <div class="modal-dialog modal-lg" role="document">
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title">Show Order</h5>
@@ -199,58 +230,59 @@
                         @isset($view_order_detail)
 
 
-                        <table class="table table-bordered">
-                            <tr>
-                                <th>Name</th>
-                                <th>MobileNo</th>
-                                <th>Pan</th>
-                                <th>Aadhar</th>
-                            </tr>
-                            <tr>
-                                <td>{{ $view_order_detail->customer->name }}</td>
-                                <td>{{ $view_order_detail->customer->mobile_number }}</td>
-                                <td>{{ $view_order_detail->customer->pan }}</td>
-                                <td>{{ $view_order_detail->customer->aadhar }}</td>
-                            </tr>
-                        </table>
+                            <table class="table table-bordered">
+                                <tr>
+                                    <th>Name</th>
+                                    <th>MobileNo</th>
+                                    <th>Pan</th>
+                                    <th>Aadhar</th>
+                                </tr>
+                                <tr>
+                                    <td>{{ $view_order_detail->customer->name }}</td>
+                                    <td>{{ $view_order_detail->customer->mobile_number }}</td>
+                                    <td>{{ $view_order_detail->customer->pan }}</td>
+                                    <td>{{ $view_order_detail->customer->aadhar }}</td>
+                                </tr>
+                            </table>
 
-                        <h4>Order</h4>
-                        <table class="table table-bordered">
-                            <tr>
-                                <th>Order ID</th>
-                                <th>Total Month</th>
-                                <th>Total Amount</th>
-                                <th>Per Month Amount</th>
+                            <h4>Order</h4>
+                            <table class="table table-bordered">
+                                <tr>
+                                    <th>Order ID</th>
+                                    <th>Total Month</th>
+                                    <th>Total Amount</th>
+                                    <th>Per Month Amount</th>
 
-                            </tr>
-                            <tr>
-                                <td>{{ $view_order_detail->id }}</td>
-                                <td>{{ $view_order_detail->total_month }}</td>
-                                <td>{{ $view_order_detail->total_amount }}</td>
-                                <td>{{ $view_order_detail->per_month_amount }}</td>
-                            </tr>
-                        </table>
-                        <h4>Loan Amount</h4>
-                        <table class="table table-bordered">
-                            <tr>
-                                <th>Expected Date</th>
-                                <th>Amount</th>
-                                <th>Is Paid?</th>
-                            </tr>
-                            @foreach ($view_order_detail->order_details as $key => $order_detail)
-                            <tr>
-                                <td>{{ $order_detail->expected_dt }}</td>
-                                <td>{{ $order_detail->amount }}</td>
-                                <td>{{ $order_detail->is_paid == 0 ? 'No' : 'Yes' }}</td>
+                                </tr>
+                                <tr>
+                                    <td>{{ $view_order_detail->id }}</td>
+                                    <td>{{ $view_order_detail->total_month }}</td>
+                                    <td>{{ $view_order_detail->total_amount }}</td>
+                                    <td>{{ $view_order_detail->per_month_amount }}</td>
+                                </tr>
+                            </table>
+                            <h4>Loan Amount</h4>
+                            <table class="table table-bordered">
+                                <tr>
+                                    <th>Expected Date</th>
+                                    <th>Amount</th>
+                                    <th>Is Paid?</th>
+                                </tr>
+                                @foreach ($view_order_detail->order_details as $key => $order_detail)
+                                    <tr>
+                                        <td>{{ $order_detail->expected_dt }}</td>
+                                        <td>{{ $order_detail->amount }}</td>
+                                        <td>{{ $order_detail->is_paid == 0 ? 'No' : 'Yes' }}</td>
 
-                            </tr>
-                            @endforeach
+                                    </tr>
+                                @endforeach
 
-                        </table>
+                            </table>
                         @endisset
 
                     </div>
                     <div class="modal-footer">
+                        <button type="button" class="btn btn-primary" wire:click="printLoanInvoice">Print</button>
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                     </div>
                 </form>
@@ -285,6 +317,30 @@
 
         window.addEventListener('show-order-detail', event => {
             $('#viewOrderModal').modal('show');
+
+        });
+
+        window.addEventListener('print-order', event => {
+
+            var elem = document.getElementById("viewOrderModal")
+
+            var domClone = elem.cloneNode(true);
+
+            var $printSection = document.getElementById("printSection");
+
+            if (!$printSection) {
+                var $printSection = document.createElement("div");
+                $printSection.id = "printSection";
+                document.body.appendChild($printSection);
+            }
+
+            $printSection.innerHTML = "";
+            $printSection.appendChild(domClone);
+            window.print();
+
+
+
+
         });
     </script>
 @endpush

@@ -53,8 +53,9 @@ class OrderComponent extends Component
             $order_detail = new OrderDetail();
             $order_detail->order_id = $order->id;
             $order_detail->expected_dt = $date;
-            $order_detail->amount = $order->per_month_amount;
+            $order_detail->amount = $this->per_month_amount;
             $order_detail->save();
+            $date = Carbon::parse(strtotime($date))->addMonth()->format('Y-m-d');
 
         }
 
@@ -100,11 +101,21 @@ class OrderComponent extends Component
         $this->dispatchBrowserEvent('show-order-detail');
     }
 
+    public function calculateLoan()
+    {
+        $this->per_month_amount = round(($this->total_amount / $this->total_month), 2);
+    }
+
     public function render()
     {
         $customer = Customer::all();
         $orders =Order::with(['customer'])->orderBy('id', 'DESC')->get();
         // dd($orders[0]->customer);
         return view('livewire.order-component', ['customer' => $customer, 'orders' => $orders])->layout('livewire.layout.master');
+    }
+
+    public function printLoanInvoice()
+    {
+        $this->dispatchBrowserEvent('print-order');
     }
 }

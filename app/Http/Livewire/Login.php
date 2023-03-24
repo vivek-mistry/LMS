@@ -33,6 +33,13 @@ class Login extends Component
         $this->dispatchBrowserEvent('close-modal');
     }
 
+    public function logout()
+    {
+        Auth::guard('web')->logout();
+
+        return redirect('login');
+    }
+
 
 
 

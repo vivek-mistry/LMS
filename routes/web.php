@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\WelcomeController;
 use App\Http\Livewire\CustomerComponent;
 use App\Http\Livewire\Login;
 use App\Http\Livewire\OrderComponent;
@@ -20,7 +21,11 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+Route::get('welcome', [WelcomeController::class, 'index']);
+
 Route::get('login', Login::class);
+
+Route::get('logout', [Login::class, 'logout'])->name('logout');
 
 Route::get('customers', CustomerComponent::class)->name('customers')->middleware('auth');
 
