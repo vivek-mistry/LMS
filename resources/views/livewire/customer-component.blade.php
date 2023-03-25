@@ -11,7 +11,7 @@
                     <div class="card-body">
                         @if (session()->has('message'))
                             <div class="alert alert-success text-center">{{ session('message') }}</div>
-                        @endifð
+                        @endif
                         <table class="table table-borderd">
                             <thead>
                                 <th>Name</th>
