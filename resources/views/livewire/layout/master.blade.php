@@ -28,7 +28,9 @@
                     <li class="nav-item {{ $current_route == 'orders' ? 'active' : null }}">
                         <a class="nav-link" href="{{ route('orders') }}">Orders</a>
                     </li>
-
+                    <li class="nav-item {{ $current_route == 'stock' ? 'active' : null }}">
+                        <a class="nav-link" href="{{ route('stocks') }}">Stock</a>
+                    </li>
                 </ul>
                 <form class="form-inline my-2 my-lg-0">
 
