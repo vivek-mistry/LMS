@@ -3,3 +3,11 @@
 ## Loan Management System (Laravel)
 
 It is a small loan management system, where user can track the data customer loans. In future, there will be multiple categories related to loans
+
+## Feature
+- Auth Module
+- Customer Module
+- Order Module
+- Dashboard, which have current payment have to be taken
+- Print invoice
+- Receipt 
