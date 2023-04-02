@@ -11,7 +11,27 @@ class DashboardComponent extends Component
 {
     use WithPagination;
 
-    public $searchItem;
+    public $searchItem, $order_detail_id;
+
+    public function setOrderDetailId($id)
+    {
+        $this->order_detail_id = $id;
+
+        $this->dispatchBrowserEvent('show-confirm-payment');
+    }
+
+    public function confirmPayment()
+    {
+        $order_detail = OrderDetail::find($this->order_detail_id);
+        $order_detail->is_paid = 1;
+        $order_detail->payment_dt = Carbon::now()->format('Y-m-d');
+        $order_detail->save();
+
+        session()->flash('message', 'Receipt generated & payment confirm');
+
+        // Close modal
+        $this->dispatchBrowserEvent('close-modal');
+    }
 
     public function render()
     {
