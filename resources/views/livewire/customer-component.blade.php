@@ -25,8 +25,8 @@
                             <thead>
                                 <th>Name</th>
                                 <th>Mobile Number</th>
-                                <th>PAN</th>
-                                <th>Aadhar Card</th>
+                                <th>Mobile Number 2</th>
+                                <th>Mobile Number 3</th>
                                 <th>Action</th>
                             </thead>
                             <tbody>
@@ -34,8 +34,8 @@
                                     <tr>
                                         <td>{{ $value->name }}</td>
                                         <td>{{ $value->mobile_number }}</td>
-                                        <td>{{ $value->pan }}</td>
-                                        <td>{{ $value->aadhar }}</td>
+                                        <td>{{ $value->mobile_number2 }}</td>
+                                        <td>{{ $value->mobile_number3 }}</td>
                                         <td>
                                             <button class="btn btn-primary" data-toggle="modal"
                                                 data-target="#editCustomerModal" wire:click="editCustomer({{ $value->id }})">Edit</button>
@@ -46,6 +46,7 @@
                             </tbody>
                         </table>
                         {{ $customers->links() }}
+
                     </div>
                 </div>
             </div>
@@ -67,7 +68,7 @@
                     <div class="modal-body">
 
                         <div class="form-group row">
-                            <label class="col-3">Name</label>
+                            <label class="col-3">Name*</label>
                             <div class="col-9">
                                 <input type="text" class="form-control" name="name" wire:model="name">
                                 @error('name')
@@ -77,7 +78,7 @@
 
                         </div>
                         <div class="form-group row">
-                            <label class="col-3">Mobile Number</label>
+                            <label class="col-3">Mobile Number*</label>
                             <div class="col-9">
                                 <input type="text" class="form-control" name="mobile_number"
                                     wire:model="mobile_number">
@@ -88,20 +89,20 @@
 
                         </div>
                         <div class="form-group row">
-                            <label class="col-3">Pan Number</label>
+                            <label class="col-3">Mobile Number 2</label>
                             <div class="col-9">
-                                <input type="text" class="form-control " name="pan" wire:model="pan">
-                                @error('pan')
+                                <input type="number" class="form-control " wire:model="mobile_number2">
+                                @error('mobile_number2')
                                     <span class="text-danger">{{ $message }}</span>
                                 @enderror
                             </div>
 
                         </div>
                         <div class="form-group row">
-                            <label class="col-3">Aadhar Number</label>
+                            <label class="col-3">Mobile Number 3</label>
                             <div class="col-9">
-                                <input type="text" class="form-control" name="aadhar" wire:model="aadhar">
-                                @error('aadhar')
+                                <input type="number" class="form-control" name="mobile_number3" wire:model="mobile_number3">
+                                @error('mobile_number3')
                                     <span class="text-danger">{{ $message }}</span>
                                 @enderror
                             </div>
@@ -133,7 +134,7 @@
                     <div class="modal-body">
 
                         <div class="form-group row">
-                            <label class="col-3">Name</label>
+                            <label class="col-3">Name*</label>
                             <div class="col-9">
                                 <input type="text" class="form-control" name="name" wire:model="name">
                                 @error('name')
@@ -143,7 +144,7 @@
 
                         </div>
                         <div class="form-group row">
-                            <label class="col-3">Mobile Number</label>
+                            <label class="col-3">Mobile Number*</label>
                             <div class="col-9">
                                 <input type="text" class="form-control" name="mobile_number"
                                     wire:model="mobile_number">
@@ -154,24 +155,23 @@
 
                         </div>
                         <div class="form-group row">
-                            <label class="col-3">Pan Number</label>
+                            <label class="col-3">Mobile Number 2</label>
                             <div class="col-9">
-                                <input type="text" class="form-control " name="pan" wire:model="pan">
-                                @error('pan')
+                                <input type="number" class="form-control " wire:model="mobile_number2">
+                                @error('mobile_number2')
                                     <span class="text-danger">{{ $message }}</span>
                                 @enderror
                             </div>
 
                         </div>
                         <div class="form-group row">
-                            <label class="col-3">Aadhar Number</label>
+                            <label class="col-3">Mobile Number 3</label>
                             <div class="col-9">
-                                <input type="text" class="form-control" name="aadhar" wire:model="aadhar">
-                                @error('aadhar')
+                                <input type="number" class="form-control" name="mobile_number3" wire:model="mobile_number3">
+                                @error('mobile_number3')
                                     <span class="text-danger">{{ $message }}</span>
                                 @enderror
                             </div>
-
                         </div>
 
                     </div>

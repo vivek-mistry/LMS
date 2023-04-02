@@ -13,7 +13,7 @@ class CustomerComponent extends Component
 
     public $searchItem;
 
-    public $name, $mobile_number, $pan, $aadhar, $customer_edit_id;
+    public $name, $mobile_number, $pan, $aadhar, $customer_edit_id, $mobile_number2, $mobile_number3;
 
     public $dataTable;
 
@@ -22,15 +22,15 @@ class CustomerComponent extends Component
         $this->validate([
             'name' => 'required',
             'mobile_number' => 'required|digits:10|unique:customers',
-            'pan' => 'required|alpha_num',
-            'aadhar' => 'required|digits:16'
+            'mobile_number2' => 'sometimes',
+            'mobile_number3' => 'sometimes'
         ]);
 
         $customer = New Customer();
         $customer->name = $this->name;
         $customer->mobile_number = $this->mobile_number;
-        $customer->pan = $this->pan;
-        $customer->aadhar = $this->aadhar;
+        $customer->mobile_number2 = $this->mobile_number2;
+        $customer->mobile_number3 = $this->mobile_number3;
 
         $customer->save();
 
@@ -47,16 +47,16 @@ class CustomerComponent extends Component
         $this->validate([
             'name' => 'required',
             'mobile_number' => 'required|digits:10|unique:customers,mobile_number,'.$this->customer_edit_id,
-            'pan' => 'required|alpha_num',
-            'aadhar' => 'required|digits:16'
+            'mobile_number2' => 'sometimes',
+            'mobile_number3' => 'sometimes'
         ]);
 
         $customer = Customer::find($this->customer_edit_id);
 
         $customer->name = $this->name;
         $customer->mobile_number = $this->mobile_number;
-        $customer->pan = $this->pan;
-        $customer->aadhar = $this->aadhar;
+        $customer->mobile_number2 = $this->mobile_number2;
+        $customer->mobile_number3 = $this->mobile_number3;
 
         $customer->save();
 
@@ -75,14 +75,18 @@ class CustomerComponent extends Component
         $this->customer_edit_id = $id;
         $this->name = $customer->name;
         $this->mobile_number = $customer->mobile_number;
-        $this->pan = $customer->pan;
-        $this->aadhar = $customer->aadhar;
+        $this->mobile_number2 = $customer->mobile_number2;
+        $this->mobile_number3 = $customer->mobile_number3;
+        // $this->pan = $customer->pan;
+        // $this->aadhar = $customer->aadhar;
     }
 
     public function resetForm()
     {
         $this->name = '';
         $this->mobile_number = '';
+        $this->mobile_number2 = '';
+        $this->mobile_number3 = '';
         $this->pan = '';
         $this->aadhar = '';
         $this->customer_edit_id = '';
