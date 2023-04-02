@@ -12,6 +12,15 @@
                         @if (session()->has('message'))
                             <div class="alert alert-success text-center">{{ session('message') }}</div>
                         @endif
+                        <div class="row mb-2">
+                            <div class="col-8"></div>
+                            <div class="col-4 pull-right">
+                                <div class="">
+                                    <input type="text"  class="form-control" placeholder="Search" wire:model="searchItem" />
+                                </div>
+                            </div>
+
+                        </div>
                         <table class="table table-borderd">
                             <thead>
                                 <th>Name</th>
@@ -36,7 +45,7 @@
                                 @endforeach
                             </tbody>
                         </table>
-
+                        {{ $customers->links() }}
                     </div>
                 </div>
             </div>

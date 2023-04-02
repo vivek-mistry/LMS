@@ -5,9 +5,14 @@ namespace App\Http\Livewire;
 use App\DataTables\CustomerDataTable;
 use App\Models\Customer;
 use Livewire\Component;
+use Livewire\WithPagination;
 
 class CustomerComponent extends Component
 {
+    use WithPagination;
+
+    public $searchItem;
+
     public $name, $mobile_number, $pan, $aadhar, $customer_edit_id;
 
     public $dataTable;
@@ -86,7 +91,10 @@ class CustomerComponent extends Component
     public function render()
     {
         // return $dataTable->render('livewire.customer-component')->layout('livewire.layout.master');
-        $customer = Customer::all();
+        $customer = Customer::where(function($sub_query){
+            $sub_query->where('name', 'like', '%'.$this->searchItem.'%')
+                      ->orWhere('mobile_number', 'like', '%'.$this->searchItem.'%');
+        })->orderBy('id', 'DESC')->paginate(10);
 
         return view('livewire.customer-component', ['customers' => $customer])->layout('livewire.layout.master');
     }
