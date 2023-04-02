@@ -74,7 +74,7 @@
                                         </td>
                                     </tr>
                                 @endforeach
-                                {{ $orders->links() }}
+                                {{ $orders->links('pagination::bootstrap-4') }}
                             </tbody>
                         </table>
                     </div>
