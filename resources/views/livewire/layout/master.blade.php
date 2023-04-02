@@ -4,6 +4,13 @@
     <title>{{ config('app.name') }}</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css"
         integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
+
+    <style>
+        .transparent-red{
+            border: 2px solid rgb(255, 0, 0);
+            background: rgba(217, 78, 67, 0.5)
+        }
+    </style>
     @stack('styles')
     @livewireStyles()
 </head>
@@ -22,6 +29,9 @@
 
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav mr-auto">
+                    <li class="nav-item {{ $current_route == 'dashboard' ? 'active' : null }}">
+                        <a class="nav-link" href="{{ route('dashboard') }}">Dashboard </a>
+                    </li>
                     <li class="nav-item {{ $current_route == 'customers' ? 'active' : null }}">
                         <a class="nav-link" href="{{ route('customers') }}">Customer </a>
                     </li>
