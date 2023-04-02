@@ -7,9 +7,14 @@ use App\Models\Order;
 use App\Models\OrderDetail;
 use Carbon\Carbon;
 use Livewire\Component;
+use Livewire\WithPagination;
 
 class OrderComponent extends Component
 {
+    use WithPagination;
+
+    public $searchItem;
+
     public $customer_id, $title, $total_month, $total_amount, $loan_payment_date, $per_month_amount, $note;
 
     public $order_delete_id;
@@ -109,7 +114,10 @@ class OrderComponent extends Component
     public function render()
     {
         $customer = Customer::all();
-        $orders =Order::with(['customer'])->orderBy('id', 'DESC')->get();
+
+        $orders = Order::with(['customer'])->where(function($sub_query){
+            $sub_query->where('title', 'like', '%'.$this->searchItem.'%');
+        })->orderBy('id', 'DESC')->paginate(10);
         // dd($orders[0]->customer);
         return view('livewire.order-component', ['customer' => $customer, 'orders' => $orders])->layout('livewire.layout.master');
     }

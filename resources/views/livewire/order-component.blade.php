@@ -38,6 +38,15 @@
                         @if (session()->has('message'))
                             <div class="alert alert-success text-center">{{ session('message') }}</div>
                         @endif
+                        <div class="row mb-2">
+                            <div class="col-8"></div>
+                            <div class="col-4 pull-right">
+                                <div class="">
+                                    <input type="text"  class="form-control" placeholder="Search" wire:model="searchItem" />
+                                </div>
+                            </div>
+
+                        </div>
                         <table class="table table-borderd">
                             <thead>
                                 <th>Order Id</th>
@@ -65,6 +74,7 @@
                                         </td>
                                     </tr>
                                 @endforeach
+                                {{ $orders->links() }}
                             </tbody>
                         </table>
                     </div>
@@ -233,9 +243,9 @@
                             <table class="table table-bordered">
                                 <tr>
                                     <th>Name</th>
-                                    <th>MobileNo</th>
-                                    <th>Pan</th>
-                                    <th>Aadhar</th>
+                                    <th>Mobile Number</th>
+                                    <th>Mobile Number 2 </th>
+                                    <th>Mobile Number 3 </th>
                                 </tr>
                                 <tr>
                                     <td>{{ $view_order_detail->customer->name }}</td>
