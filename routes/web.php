@@ -7,6 +7,7 @@ use App\Http\Livewire\Login;
 use App\Http\Livewire\OrderComponent;
 use App\Http\Livewire\ReceiptComponent;
 use App\Http\Livewire\Stock;
+use App\Http\Livewire\TrashedOrders;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -39,3 +40,5 @@ Route::get('stock', Stock::class)->name('stocks')->middleware('auth');
 Route::get('dashboard', DashboardComponent::class)->name('dashboard')->middleware('auth');
 
 Route::get('receipt', ReceiptComponent::class)->name('receipt')->middleware('auth');
+
+Route::get('trashed-orders', TrashedOrders::class)->name('trashed_orders')->middleware('auth');

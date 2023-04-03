@@ -6,10 +6,11 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Order extends Model
 {
-    use HasFactory;
+    use HasFactory, SoftDeletes;
 
     protected $table_name = 'orders';
 
@@ -26,7 +27,8 @@ class Order extends Model
         'total_amount',
         'per_month_amount',
         'loan_payment_date',
-        'note'
+        'note',
+        'deleted_at'
     ];
 
     /**
