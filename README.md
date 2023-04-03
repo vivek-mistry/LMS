@@ -11,3 +11,4 @@ It is a small loan management system, where user can track the data customer loa
 - Dashboard, which have current payment have to be taken
 - Print invoice
 - Receipt 
+- Recover Orders
