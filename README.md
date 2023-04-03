@@ -12,3 +12,4 @@ It is a small loan management system, where user can track the data customer loa
 - Print invoice
 - Receipt 
 - Recover Orders
+- Manage Activity Logs

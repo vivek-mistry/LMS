@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\WelcomeController;
+use App\Http\Livewire\ActivityComponent;
 use App\Http\Livewire\CustomerComponent;
 use App\Http\Livewire\DashboardComponent;
 use App\Http\Livewire\Login;
@@ -42,3 +43,5 @@ Route::get('dashboard', DashboardComponent::class)->name('dashboard')->middlewar
 Route::get('receipt', ReceiptComponent::class)->name('receipt')->middleware('auth');
 
 Route::get('trashed-orders', TrashedOrders::class)->name('trashed_orders')->middleware('auth');
+
+Route::get('activity-logs', ActivityComponent::class)->name('activity_logs')->middleware('auth');

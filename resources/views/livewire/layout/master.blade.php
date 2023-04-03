@@ -50,7 +50,7 @@
 
                 </ul>
                 <form class="form-inline my-2 my-lg-0">
-
+                        <a class="btn btn-outline-warning my-2 my-sm-0 mr-2" href="{{ route('activity_logs') }}">Notifications</a>
                         <a class="btn btn-outline-danger my-2 my-sm-0" href="{{ route('logout') }}">Logout</a>
 
                 </form>
