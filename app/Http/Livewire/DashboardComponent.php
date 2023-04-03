@@ -29,6 +29,8 @@ class DashboardComponent extends Component
 
         session()->flash('message', 'Receipt generated & payment confirm');
 
+        activity()->withProperties($order_detail)->causedBy(auth()->user())->log('Receipt generated & payment confirm.');
+
         // Close modal
         $this->dispatchBrowserEvent('close-modal');
     }

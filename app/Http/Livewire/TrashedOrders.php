@@ -22,9 +22,11 @@ class TrashedOrders extends Component
 
     public function recoverOrder()
     {
-        Order::withTrashed()->find($this->order_id)->restore();
+        $order = Order::withTrashed()->find($this->order_id)->restore();
 
         session()->flash('message', 'Your order has been restored');
+
+        activity()->withProperties($order)->causedBy(auth()->user())->log('Recover Order.');
 
         $this->dispatchBrowserEvent('close-model');
     }

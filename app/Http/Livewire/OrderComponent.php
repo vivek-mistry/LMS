@@ -68,6 +68,8 @@ class OrderComponent extends Component
 
         session()->flash('message', 'New order has been created');
 
+        activity()->withProperties($order)->causedBy(auth()->user())->log('New Order created.');
+
         $this->dispatchBrowserEvent('close-modal');
     }
 
@@ -93,6 +95,8 @@ class OrderComponent extends Component
         $order->delete();
         $this->order_delete_id = '';
         session()->flash('message', 'Order has been removed');
+
+        activity()->withProperties($order)->causedBy(auth()->user())->log('Remove Order.');
 
         $this->dispatchBrowserEvent('close-delete-model');
     }

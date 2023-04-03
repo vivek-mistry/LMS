@@ -38,6 +38,9 @@ class CustomerComponent extends Component
 
         session()->flash('message', 'New Customer has been added successfully');
 
+        //Activity Log
+        activity()->withProperties($customer)->causedBy(auth()->user())->log('Create a new customer.');
+
         // Close modal
         $this->dispatchBrowserEvent('close-modal');
     }
@@ -63,6 +66,8 @@ class CustomerComponent extends Component
         $this->resetForm();
 
         session()->flash('message', 'Customer has been updated successfully');
+
+        activity()->withProperties($customer)->causedBy(auth()->user())->log('Update a customer.');
 
         // Close modal
         $this->dispatchBrowserEvent('close-edit-modal');
