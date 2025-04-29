@@ -17,7 +17,7 @@
                                         <label for="exampleInputEmail1">Email*</label>
                                         <input type="text" wire:model='email' class="form-control">
                                         @error('email')
-                                            <span class="text-danger">{{ $message }}</span>
+                                        <span class="text-danger">{{ $message }}</span>
                                         @enderror
                                     </div>
                                 </div>
@@ -28,16 +28,34 @@
                                         <label for="exampleInputEmail1">Password*</label>
                                         <input type="password" wire:model='password' class="form-control">
                                         @error('password')
-                                            <span class="text-danger">{{ $message }}</span>
+                                        <span class="text-danger">{{ $message }}</span>
                                         @enderror
                                     </div>
                                 </div>
+                                @if (env('APP_ENV') == "local")
+                            
+                        
+                                <div class="col-12 mt-4">
+                                    <table class="table table-bordered ">
+                                        <tr>
+                                            <th>Email</th>
+                                            <td>admin@gmail.com</td>
+                                        </tr>
+                                        <tr>
+                                            <th>Password</th>
+                                            <td>12345678</td>
+                                        </tr>
+                                    </table>
+                                </div>
+                                @endif
                             </div>
                         </div>
 
+
+                        
                         <div class="card-footer">
                             @if (session()->has('message'))
-                                <div class="alert alert-success text-center">{{ session('message') }}</div>
+                            <div class="alert alert-success text-center">{{ session('message') }}</div>
                             @endif
                             <button type="submit" class="btn btn-primary"> Login</button>
                         </div>
