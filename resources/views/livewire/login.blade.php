@@ -1,11 +1,11 @@
 <section class="container">
     {{-- @include('admin.alert.failed-validate') --}}
-    <div class="container-fluid p-5 m-5">
-        <div class="row">
+    <div class="container-fluid mt-5">
+        <div class="row d-flex justify-content-center">
             <div class="col-6">
                 <div class="card" wire:ignore.self>
                     <div class="card-header">
-                        <h3 class="card-title"> Login </h3>
+                        <h3 class="card-title"> ShopLedger Login </h3>
 
                     </div>
                     <form wire:submit.prevent='checkAuthenticate'>

@@ -30,6 +30,7 @@ class ReceiptComponent extends Component
     public function render()
     {
         $order_details = OrderDetail::with(['order', 'order.customer'])
+                ->whereHas('order.customer')
                 ->where('is_paid', 1)->orderBy('payment_dt', 'DESC')->paginate(10);
         return view('livewire.receipt-component', ['order_details' => $order_details])->layout('livewire.layout.master');
     }
