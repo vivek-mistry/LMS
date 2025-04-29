@@ -10,6 +10,13 @@ class Login extends Component
 
     public $email, $password;
 
+    public function mount()
+    {
+        if (auth()->check()) {
+            return redirect()->to('dashboard');
+        }
+    }
+
     public function render()
     {
         return view('livewire.login')->layout('livewire.layout.master');
@@ -37,7 +44,7 @@ class Login extends Component
     {
         Auth::guard('web')->logout();
 
-        return redirect('login');
+        return redirect()->route('sign_in');
     }
 
 

@@ -44,9 +44,9 @@
                     <li class="nav-item {{ $current_route == 'trashed-orders' ? 'active' : null }}">
                         <a class="nav-link" href="{{ route('trashed_orders') }}">Recover Orders</a>
                     </li>
-                    {{-- <li class="nav-item {{ $current_route == 'stock' ? 'active' : null }}">
+                    <li class="nav-item {{ $current_route == 'stock' ? 'active' : null }}">
                         <a class="nav-link" href="{{ route('stocks') }}">Stock</a>
-                    </li> --}}
+                    </li>
 
                 </ul>
                 <form class="form-inline my-2 my-lg-0">

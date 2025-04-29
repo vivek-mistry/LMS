@@ -22,13 +22,13 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+// Route::get('/', function () {
+//     return view('welcome');
+// });
 
 Route::get('welcome', [WelcomeController::class, 'index']);
 
-Route::get('login', Login::class);
+Route::get('/', Login::class)->name('sign_in');
 
 Route::get('logout', [Login::class, 'logout'])->name('logout');
 
